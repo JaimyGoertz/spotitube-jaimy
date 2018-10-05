@@ -1,5 +1,7 @@
-package nl.han.oose.jaimy;
+package nl.han.oose.jaimy.Login;
 
+import nl.han.oose.jaimy.Account;
+import nl.han.oose.jaimy.UserToken;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

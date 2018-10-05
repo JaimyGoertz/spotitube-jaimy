@@ -1,21 +1,23 @@
-package nl.han.oose.jaimy;
+package nl.han.oose.jaimy.Playlists;
 
+
+import nl.han.oose.jaimy.Track;
 
 public class Playlist {
     private int id;
     private String name;
     private boolean owner;
-    private Tracks tracks;
+    private Track track;
 
     public Playlist() {
 
     }
 
-    public Playlist(int id, String name, boolean owner, Tracks tracks) {
+    public Playlist(int id, String name, boolean owner, Track track) {
         this.id = id;
         this.name = name;
         this.owner = owner;
-        this.tracks = tracks;
+        this.track = track;
     }
 
     public int getId() {
@@ -42,11 +44,11 @@ public class Playlist {
         this.owner = owner;
     }
 
-    public Tracks getTracks() {
-        return tracks;
+    public Track getTrack() {
+        return track;
     }
 
-    public void setTracks(Tracks tracks) {
-        this.tracks = tracks;
+    public void setTrack(Track track) {
+        this.track = track;
     }
 }
