@@ -1,6 +1,5 @@
 package nl.han.oose.jaimy.Playlists;
 
-import nl.han.oose.jaimy.Track;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,10 +18,12 @@ public class PlaylistControllerTest {
 
     @Test
     public void testStatusOKOnPlaylistRequest() {
-        sut.playlists.add(new Playlist(1, "test", false, new Track()));
+        sut.playlistList.add(new Playlist(1, "test", false, sut.tracks1));
 
         Response playlistResponse = sut.getPlaylist();
 
         assertEquals(Response.Status.OK.getStatusCode(), playlistResponse.getStatus());
     }
+
+
 }

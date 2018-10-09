@@ -3,17 +3,19 @@ package nl.han.oose.jaimy.Playlists;
 
 import nl.han.oose.jaimy.Track;
 
+import java.util.List;
+
 public class Playlist {
     private int id;
     private String name;
     private boolean owner;
-    private Track track;
+    private List<Track> track;
 
     public Playlist() {
 
     }
 
-    public Playlist(int id, String name, boolean owner, Track track) {
+    public Playlist(int id, String name, boolean owner, List<Track> track) {
         this.id = id;
         this.name = name;
         this.owner = owner;
@@ -44,11 +46,11 @@ public class Playlist {
         this.owner = owner;
     }
 
-    public Track getTrack() {
+    public List<Track> getTrack() {
         return track;
     }
 
-    public void setTrack(Track track) {
+    public void setTrack(List<Track> track) {
         this.track = track;
     }
 }
