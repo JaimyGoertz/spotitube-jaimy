@@ -35,9 +35,10 @@ public class PlaylistController {
     @Path("/{id}/tracks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTracksInPlaylist(@PathParam("id") final int id) {
+    public Response getTracksInPlaylist(@PathParam("id") final int id, @QueryParam("token") String userToken) {
         try {
-            return Response.ok().entity(playlistService.service(playlistList, id)).build();
+            System.out.println(userToken);
+            return Response.ok().entity(playlistService.service(playlistList, id, userToken)).build();
 
         } catch (NotFoundException exception) {
             return Response.status(Response.Status.NOT_FOUND).build();

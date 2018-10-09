@@ -7,10 +7,10 @@ import java.util.List;
 
 public class PlaylistService {
 
-    public TrackOverview service(List<Playlist> playlistList, int id) throws NotFoundException {
+    public TrackOverview service(List<Playlist> playlistList, int id, String usertToken) throws NotFoundException {
         for (Playlist playlist : playlistList) {
 
-            if (id == playlist.getId()) {
+            if (id == playlist.getId() && "1234-1234-1234".equals(usertToken)) {
                 return new TrackOverview(playlist.getTrack());
             } else {
                 return new TrackOverview();
