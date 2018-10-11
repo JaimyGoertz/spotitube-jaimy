@@ -6,10 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ws.rs.core.Response;
-
-import static org.junit.Assert.assertEquals;
-
 @RunWith(MockitoJUnitRunner.class)
 public class PlaylistControllerTest {
 
@@ -19,13 +15,20 @@ public class PlaylistControllerTest {
     @InjectMocks
     private PlaylistController sut;
 
+//    @Test
+//    public void testStatusOKOnPlaylistRequest() throws AccountException {
+//        PlaylistOverview playlistOverview = new PlaylistOverview(playlistService.playlistList);
+//        Mockito.when(playlistService.getPlaylists(Mockito.any(), Mockito.any())).thenReturn(playlistOverview);
+//
+//        Response playlistResponse = sut.getPlaylist("1234-1234-1234");
+//
+//        assertEquals(Response.Status.OK.getStatusCode(), playlistResponse.getStatus());
+//        assertEquals(playlistOverview, playlistResponse.getEntity());
+//    }
+
     @Test
-    public void testStatusOKOnPlaylistRequest() {
-        sut.playlistList.add(new Playlist(1, "test", false, sut.tracks1));
+    public void TestIfUsertokenIsRight() {
 
-        Response playlistResponse = sut.getPlaylist();
-
-        assertEquals(Response.Status.OK.getStatusCode(), playlistResponse.getStatus());
     }
 
 

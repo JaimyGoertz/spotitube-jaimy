@@ -2,11 +2,11 @@ package nl.han.oose.jaimy.Playlists;
 
 import nl.han.oose.jaimy.TrackOverview;
 
-import javax.ws.rs.NotFoundException;
+import javax.security.auth.login.AccountException;
 import java.util.List;
 
 public interface PlaylistService {
-    TrackOverview getPlaylists(List<Playlist> playlistList, int id, String userToken) throws NotFoundException;
+    TrackOverview getPlaylists(int id, String userToken) throws AccountException;
 
     List<Playlist> getPlaylists();
 }

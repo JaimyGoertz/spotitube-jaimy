@@ -4,7 +4,7 @@ import nl.han.oose.jaimy.Track;
 import nl.han.oose.jaimy.TrackOverview;
 
 import javax.enterprise.inject.Default;
-import javax.ws.rs.NotFoundException;
+import javax.security.auth.login.AccountException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +24,20 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public TrackOverview getPlaylists(List<Playlist> playlistList, int id, String userToken) throws NotFoundException {
+    public TrackOverview getPlaylists(int id, String userToken) throws AccountException {
         for (Playlist playlist : playlistList) {
 
-            if (id == playlist.getId() && "1234-1234-1234".equals(userToken)) {
-                return new TrackOverview(playlist.getTrack());
+            if (id == playlist.getId()) {
+                if ("1234-1234-1234".equals(userToken)) {
+                    return new TrackOverview(playlist.getTrack());
+                } else {
+                    throw new AccountException();
+                }
             } else {
                 return new TrackOverview();
             }
         }
-        throw new NotFoundException("Track failed");
+        return null;
     }
 
 

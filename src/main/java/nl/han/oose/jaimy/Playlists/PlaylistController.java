@@ -2,6 +2,7 @@ package nl.han.oose.jaimy.Playlists;
 
 
 import javax.inject.Inject;
+import javax.security.auth.login.AccountException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -30,11 +31,10 @@ public class PlaylistController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTracksInPlaylist(@PathParam("id") final int id, @QueryParam("token") String userToken) {
         try {
-            System.out.println(userToken);
-            return Response.ok().entity(playlistService.getPlaylists(playlistService.getPlaylists(), id, userToken)).build();
+            return Response.ok().entity(playlistService.getPlaylists(id, userToken)).build();
 
-        } catch (NotFoundException exception) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        } catch (AccountException exception) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
 
         }
     }
