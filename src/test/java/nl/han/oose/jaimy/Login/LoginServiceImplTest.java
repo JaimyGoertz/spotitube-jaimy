@@ -11,7 +11,7 @@ import javax.security.auth.login.LoginException;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoginServiceTest {
+public class LoginServiceImplTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -19,7 +19,7 @@ public class LoginServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        sut = new LoginService();
+        sut = new LoginServiceImpl();
     }
 
     @Test

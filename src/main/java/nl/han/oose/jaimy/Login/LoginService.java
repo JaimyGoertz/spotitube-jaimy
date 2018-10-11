@@ -1,18 +1,10 @@
 package nl.han.oose.jaimy.Login;
 
-
 import nl.han.oose.jaimy.Account;
 import nl.han.oose.jaimy.UserToken;
 
 import javax.security.auth.login.LoginException;
 
-public class LoginService {
-
-    public UserToken login(Account user) throws LoginException {
-        if ("Jaimy".equals(user.getUser()) && "wachtwoord".equals(user.getPassword())) {
-            return new UserToken("Jaimy Goertz", "1234-1234-1234");
-        } else {
-            throw new LoginException("Login failed");
-        }
-    }
+public interface LoginService {
+    UserToken login(Account user) throws LoginException;
 }

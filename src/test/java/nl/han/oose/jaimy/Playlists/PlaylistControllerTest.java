@@ -3,6 +3,7 @@ package nl.han.oose.jaimy.Playlists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.ws.rs.core.Response;
@@ -12,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class PlaylistControllerTest {
 
+    @Mock
+    private PlaylistServiceImpl playlistService;
 
     @InjectMocks
     private PlaylistController sut;
