@@ -1,7 +1,8 @@
-package nl.han.oose.jaimy.Login;
+package nl.han.oose.jaimy.controllers.login;
 
 
-import nl.han.oose.jaimy.Account;
+import nl.han.oose.jaimy.entity.account.Account;
+import nl.han.oose.jaimy.services.login.LoginService;
 
 import javax.inject.Inject;
 import javax.security.auth.login.LoginException;

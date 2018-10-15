@@ -1,4 +1,4 @@
-package nl.han.oose.jaimy;
+package nl.han.oose.jaimy.entity.tracks;
 
 public class Track {
     private int id;

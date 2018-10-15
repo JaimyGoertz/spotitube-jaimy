@@ -1,7 +1,9 @@
 package nl.han.oose.jaimy.Login;
 
-import nl.han.oose.jaimy.Account;
-import nl.han.oose.jaimy.UserToken;
+import nl.han.oose.jaimy.controllers.login.LoginController;
+import nl.han.oose.jaimy.entity.account.Account;
+import nl.han.oose.jaimy.entity.account.UserToken;
+import nl.han.oose.jaimy.services.login.LoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

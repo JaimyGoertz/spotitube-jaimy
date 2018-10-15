@@ -1,5 +1,8 @@
-package nl.han.oose.jaimy.Playlists;
+package nl.han.oose.jaimy.controllers.playlist;
 
+
+import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
+import nl.han.oose.jaimy.services.playlist.PlaylistService;
 
 import javax.inject.Inject;
 import javax.security.auth.login.AccountException;

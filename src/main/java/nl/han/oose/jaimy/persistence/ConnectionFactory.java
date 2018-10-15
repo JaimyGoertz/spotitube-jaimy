@@ -10,26 +10,28 @@ public class ConnectionFactory {
 
     private Properties properties;
 
-
     public ConnectionFactory() {
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public Connection getConnection() {
         if (properties == null) {
             properties = readProperties();
         }
-        try {
-            return DriverManager.getConnection(properties.getProperty("url"),
-                    properties.getProperty("user"), properties.getProperty("password"));
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        }
 
+        try {
+            return DriverManager.getConnection(
+                    properties.getProperty("db.url"),
+                    properties.getProperty("db.user"),
+                    properties.getProperty("db.password"));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Properties readProperties() {
@@ -41,5 +43,6 @@ public class ConnectionFactory {
         }
         return properties;
     }
+
 
 }

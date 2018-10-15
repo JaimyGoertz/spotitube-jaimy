@@ -1,6 +1,7 @@
 package nl.han.oose.jaimy.persistence;
 
-import nl.han.oose.jaimy.Account;
+
+import nl.han.oose.jaimy.entity.account.Account;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,24 +15,21 @@ public class AccountDAO {
     private ConnectionFactory connectionFactory;
 
     public AccountDAO() {
-        ConnectionFactory connectionfactory = new ConnectionFactory();
+        connectionFactory = new ConnectionFactory();
     }
 
     public List<Account> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ACCOUNT");
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM user");
         ) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String user = resultSet.getString("user");
                 String password = resultSet.getString("password");
                 accounts.add(new Account(user, password));
             }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -39,19 +37,18 @@ public class AccountDAO {
     }
 
     public void persistAccount(Account account) {
-        try {
-            try (
-                    Connection connection = connectionFactory.getConnection();
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO ACCOUNT (user,password) VALUES(?,?)")
-            ) {
-                statement.setString(1, account.getUser());
-                statement.setString(1, account.getPassword());
-
-                statement.execute();
-            }
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "INSERT INTO USER (user,password) VALUES (?,?)");
+        ) {
+            statement.setString(1, account.getUser());
+            statement.setString(2, account.getPassword());
+            statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
+
 
 }

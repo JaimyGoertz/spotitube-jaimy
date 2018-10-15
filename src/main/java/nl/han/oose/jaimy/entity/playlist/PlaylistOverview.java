@@ -1,4 +1,4 @@
-package nl.han.oose.jaimy.Playlists;
+package nl.han.oose.jaimy.entity.playlist;
 
 import java.util.ArrayList;
 import java.util.List;

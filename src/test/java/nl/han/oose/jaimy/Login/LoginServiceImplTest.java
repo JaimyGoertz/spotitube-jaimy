@@ -1,7 +1,9 @@
 package nl.han.oose.jaimy.Login;
 
-import nl.han.oose.jaimy.Account;
-import nl.han.oose.jaimy.UserToken;
+import nl.han.oose.jaimy.entity.account.Account;
+import nl.han.oose.jaimy.entity.account.UserToken;
+import nl.han.oose.jaimy.services.login.LoginService;
+import nl.han.oose.jaimy.services.login.LoginServiceImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,7 +1,7 @@
-package nl.han.oose.jaimy.Login;
+package nl.han.oose.jaimy.services.login;
 
-import nl.han.oose.jaimy.Account;
-import nl.han.oose.jaimy.UserToken;
+import nl.han.oose.jaimy.entity.account.Account;
+import nl.han.oose.jaimy.entity.account.UserToken;
 
 import javax.security.auth.login.LoginException;
 

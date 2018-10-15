@@ -1,7 +1,7 @@
-package nl.han.oose.jaimy.Playlists;
+package nl.han.oose.jaimy.entity.playlist;
 
 
-import nl.han.oose.jaimy.Track;
+import nl.han.oose.jaimy.entity.tracks.Track;
 
 import java.util.List;
 

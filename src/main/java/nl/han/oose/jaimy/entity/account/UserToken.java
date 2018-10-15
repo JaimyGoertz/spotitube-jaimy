@@ -1,4 +1,4 @@
-package nl.han.oose.jaimy;
+package nl.han.oose.jaimy.entity.account;
 
 public class UserToken {
     private String user;
