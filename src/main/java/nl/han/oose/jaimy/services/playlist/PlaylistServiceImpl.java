@@ -21,40 +21,19 @@ public class PlaylistServiceImpl implements PlaylistService {
     TrackDAO trackDAO = new TrackDAO();
 
     public PlaylistServiceImpl() {
-        tracks1.add(new Track(1, "Song for someone", "The Frames", 350, "The Cost", 0, null, null, false));
-        tracks1.add(new Track(2, "The Cost", "The Frames", 423, null, 37, "10-01-2015", "Title song from the album The Cost", true));
     }
 
     @Override
     public TrackOverview getPlaylists(int id, String userToken) throws AccountException {
-        for (Playlist playlist : playlistList) {
-
-            if (id == playlist.getId()) {
-                if ("1234-1234-1234".equals(userToken)) {
-                    return new TrackOverview(playlist.getTrack());
-                } else {
-                    throw new AccountException();
-                }
-            } else {
-                return new TrackOverview();
-            }
+        List<Track> tracks = trackDAO.getAllTracksFromPlaylist(id);
+        if ("1234-1234-1234".equals(userToken)) {
+            return new TrackOverview(tracks);
+        } else {
+            throw new AccountException();
         }
-        return null;
+
     }
-//    @Override
-//    public TrackOverview makePlaylistOverview(int id, String userToken) throws AccountException {
-//        List<Track> tracksInPlaylist = trackDAO.getAllTracksFromPlaylist(id);
-//
-//        if (tracksInPlaylist != null) {
-//            if ("1234-1234-1234".equals(userToken)) {
-//                return new TrackOverview(tracksInPlaylist);
-//            } else {
-//                throw new AccountException();
-//            }
-//        } else {
-//            return new TrackOverview();
-//        }
-//    }
+
 
     @Override
     public List<Playlist> getPlaylists() {

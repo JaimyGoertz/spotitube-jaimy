@@ -7,8 +7,9 @@ import javax.security.auth.login.AccountException;
 import java.util.List;
 
 public interface PlaylistService {
+
     TrackOverview getPlaylists(int id, String userToken) throws AccountException;
 
-    public List<Playlist> getPlaylists();
+    List<Playlist> getPlaylists();
 
 }
