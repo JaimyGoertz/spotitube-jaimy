@@ -3,7 +3,7 @@ package nl.han.oose.jaimy.services.login;
 
 import nl.han.oose.jaimy.entity.account.Account;
 import nl.han.oose.jaimy.entity.account.UserToken;
-import nl.han.oose.jaimy.persistence.AccountDAO;
+import nl.han.oose.jaimy.persistence.account.AccountDAO;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
     public UserToken login(Account user) throws LoginException {
         for (Account account : accountDAO.getAllAccounts()) {
             if (user.getPassword().equals(account.getPassword()) && user.getUser().equals(account.getUser())) {
-                return new UserToken("Jaimy", "1234-1234-1234");
+                return new UserToken(user.getUser(), "1234-1234-1234");
             } else {
             }
         }

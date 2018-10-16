@@ -1,7 +1,8 @@
-package nl.han.oose.jaimy.persistence;
+package nl.han.oose.jaimy.persistence.account;
 
 
 import nl.han.oose.jaimy.entity.account.Account;
+import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

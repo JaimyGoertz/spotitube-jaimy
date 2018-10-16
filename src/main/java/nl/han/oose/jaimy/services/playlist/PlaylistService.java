@@ -9,5 +9,6 @@ import java.util.List;
 public interface PlaylistService {
     TrackOverview getPlaylists(int id, String userToken) throws AccountException;
 
-    List<Playlist> getPlaylists();
+    public List<Playlist> getPlaylists();
+
 }
