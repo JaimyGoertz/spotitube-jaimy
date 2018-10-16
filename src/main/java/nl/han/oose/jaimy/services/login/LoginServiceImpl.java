@@ -4,6 +4,7 @@ package nl.han.oose.jaimy.services.login;
 import nl.han.oose.jaimy.entity.account.Account;
 import nl.han.oose.jaimy.entity.account.UserToken;
 import nl.han.oose.jaimy.persistence.account.AccountDAO;
+import nl.han.oose.jaimy.persistence.token.TokenDAO;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Inject
     AccountDAO accountDAO = new AccountDAO();
+    TokenDAO tokenDAO = new TokenDAO();
 
     @Override
     public UserToken login(Account user) throws LoginException {
@@ -21,6 +23,7 @@ public class LoginServiceImpl implements LoginService {
             if (user.getPassword().equals(account.getPassword()) && user.getUser().equals(account.getUser())) {
                 return new UserToken(user.getUser(), "1234-1234-1234");
             } else {
+                throw new LoginException("Login failed");
             }
         }
         return null;
