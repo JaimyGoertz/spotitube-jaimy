@@ -23,7 +23,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public TrackOverview getPlaylists(int id, String Token) throws AccountException {
+    public TrackOverview getPlaylistTracks(int id, String Token) throws AccountException {
         List<Track> tracks = trackDAO.getAllTracksFromPlaylist(id);
         UserToken userToken = tokenDAO.getUserToken(Token);
         if (tokenDAO.isTokenValid(userToken)) {
@@ -34,9 +34,37 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     }
 
-
     @Override
     public List<Playlist> getPlaylists() {
         return playlistDAO.getAllPlaylists();
+    }
+
+    public List<Playlist> editPlaylistName(Playlist playlist, String token) throws Exception {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            return playlistDAO.editPlaylistName(playlist);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Playlist> deletePlaylist(Playlist playlist, String token) throws Exception {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            return playlistDAO.deletePlaylist(playlist);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Playlist> createPlaylist(int id, Boolean owner, Playlist playlist, String token) throws Exception {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            return playlistDAO.createPlaylist(id, owner, playlist);
+        } else {
+            throw new Exception();
+        }
     }
 }

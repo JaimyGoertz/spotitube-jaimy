@@ -8,8 +8,13 @@ import java.util.List;
 
 public interface PlaylistService {
 
-    TrackOverview getPlaylists(int id, String userToken) throws AccountException;
+    TrackOverview getPlaylistTracks(int id, String userToken) throws AccountException;
 
     List<Playlist> getPlaylists();
 
+    List<Playlist> editPlaylistName(Playlist playlist, String token) throws Exception;
+
+    List<Playlist> deletePlaylist(Playlist playlist, String token) throws Exception;
+
+    List<Playlist> createPlaylist(int id, Boolean owner, Playlist playlist, String userToken) throws Exception;
 }

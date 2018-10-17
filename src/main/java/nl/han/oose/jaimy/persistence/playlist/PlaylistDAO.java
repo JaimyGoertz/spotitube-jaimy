@@ -40,5 +40,71 @@ public class PlaylistDAO {
         return playlists;
     }
 
+    public List<Playlist> editPlaylistName(Playlist playlist) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "UPDATE playlist SET name = ? WHERE id = ?");
+        ) {
+            statement.setString(1, playlist.getName());
+            statement.setInt(2, playlist.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return getAllPlaylists();
+    }
+
+    public List<Playlist> deletePlaylist(Playlist playlist) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist WHERE id = ?");
+        ) {
+            statement.setInt(1, playlist.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return getAllPlaylists();
+    }
+
+    public List<Playlist> createPlaylist(int id, Boolean owner, Playlist playlist) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist VALUES(?,?,?)");
+        ) {
+            statement.setInt(1, id);
+            statement.setString(2, playlist.getName());
+            statement.setBoolean(3, owner);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return getAllPlaylists();
+    }
+
+    public int getLengthOfPlaylist(Playlist playlist) {
+        int Length = 0;
+
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "SELECT SUM(duration) AS playlist_length\n" +
+                                "    FROM track INNER JOIN playlist_tracks on track.id = playlist_tracks.track_id\n" +
+                                "    WHERE playlist_tracks.playlist_id = ?")
+        ) {
+
+            preparedStatement.setInt(1, playlist.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Length += resultSet.getInt("playlist_length");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Length;
+    }
+
 
 }

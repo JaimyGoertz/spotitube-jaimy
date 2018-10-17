@@ -1,6 +1,7 @@
 package nl.han.oose.jaimy.controllers.playlist;
 
 
+import nl.han.oose.jaimy.entity.playlist.Playlist;
 import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
 import nl.han.oose.jaimy.services.playlist.PlaylistService;
 
@@ -34,11 +35,46 @@ public class PlaylistController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTracksInPlaylist(@PathParam("id") final int id, @QueryParam("token") String userToken) {
         try {
-            return Response.ok().entity(playlistService.getPlaylists(id, userToken)).build();
+            return Response.ok().entity(playlistService.getPlaylistTracks(id, userToken)).build();
 
         } catch (AccountException exception) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
+        }
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editPlaylistName(@PathParam("id") final int id, Playlist playlist, @QueryParam("token") String userToken) {
+        try {
+            return Response.ok().entity(playlistService.editPlaylistName(playlist, userToken)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deletePlaylist(@PathParam("id") final int id, Playlist playlist, @QueryParam("token") String userToken) {
+        try {
+            return Response.ok().entity(playlistService.deletePlaylist(playlist, userToken)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createPlaylist(int id, Boolean owner, Playlist playlist, @QueryParam("token") String userToken) {
+        try {
+            return Response.ok().entity(playlistService.createPlaylist(id, owner, playlist, userToken)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 }
