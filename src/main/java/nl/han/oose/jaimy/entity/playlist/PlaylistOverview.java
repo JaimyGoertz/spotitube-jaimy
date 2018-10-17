@@ -12,7 +12,7 @@ public class PlaylistOverview {
 
     }
 
-    public PlaylistOverview(List<Playlist> playlists, int length) {
+    public PlaylistOverview(List<Playlist> playlists) {
         this.playlists = playlists;
         this.length = 100;
     }
