@@ -2,6 +2,7 @@ package nl.han.oose.jaimy.persistence.playlist;
 
 
 import nl.han.oose.jaimy.entity.playlist.Playlist;
+import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
 import nl.han.oose.jaimy.entity.tracks.Track;
 import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
@@ -20,7 +21,7 @@ public class PlaylistDAO {
         connectionFactory = new ConnectionFactory();
     }
 
-    public List<Playlist> getAllPlaylists() {
+    public PlaylistOverview getAllPlaylists() {
         List<Playlist> playlists = new ArrayList<>();
         List<Track> tracks = new ArrayList<>();
         try (
@@ -37,10 +38,10 @@ public class PlaylistDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return playlists;
+        return new PlaylistOverview(playlists);
     }
 
-    public List<Playlist> editPlaylistName(Playlist playlist) {
+    public PlaylistOverview editPlaylistName(Playlist playlist) {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
@@ -55,27 +56,31 @@ public class PlaylistDAO {
         return getAllPlaylists();
     }
 
-    public List<Playlist> deletePlaylist(Playlist playlist) {
+    public PlaylistOverview deletePlaylist(int playlistId) {
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist WHERE id = ?");
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist WHERE id = ?")
         ) {
-            statement.setInt(1, playlist.getId());
+            statement.setInt(1, playlistId);
+
             statement.execute();
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return getAllPlaylists();
     }
 
-    public List<Playlist> createPlaylist(int id, Boolean owner, Playlist playlist) {
+    public PlaylistOverview createPlaylist(Playlist playlist) {
+        playlist.setId(4);
+        playlist.setOwner(true);
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist VALUES(?,?,?)");
         ) {
-            statement.setInt(1, id);
+            statement.setInt(1, playlist.getId());
             statement.setString(2, playlist.getName());
-            statement.setBoolean(3, owner);
+            statement.setBoolean(3, playlist.getOwner());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -46,6 +46,12 @@ public class Playlist {
         this.owner = owner;
     }
 
+    public Boolean getOwner() {
+        return owner;
+    }
+
+    ;
+
     public List<Track> getTrack() {
         return track;
     }

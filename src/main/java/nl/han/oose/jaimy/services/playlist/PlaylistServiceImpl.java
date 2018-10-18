@@ -2,6 +2,7 @@ package nl.han.oose.jaimy.services.playlist;
 
 import nl.han.oose.jaimy.entity.account.UserToken;
 import nl.han.oose.jaimy.entity.playlist.Playlist;
+import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
 import nl.han.oose.jaimy.entity.tracks.Track;
 import nl.han.oose.jaimy.entity.tracks.TrackOverview;
 import nl.han.oose.jaimy.persistence.playlist.PlaylistDAO;
@@ -35,11 +36,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<Playlist> getPlaylists() {
+    public PlaylistOverview getPlaylists() {
         return playlistDAO.getAllPlaylists();
     }
 
-    public List<Playlist> editPlaylistName(Playlist playlist, String token) throws Exception {
+    public PlaylistOverview editPlaylistName(Playlist playlist, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             return playlistDAO.editPlaylistName(playlist);
@@ -49,20 +50,20 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<Playlist> deletePlaylist(Playlist playlist, String token) throws Exception {
+    public PlaylistOverview deletePlaylist(int playlistId, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return playlistDAO.deletePlaylist(playlist);
+            return playlistDAO.deletePlaylist(playlistId);
         } else {
             throw new Exception();
         }
     }
 
     @Override
-    public List<Playlist> createPlaylist(int id, Boolean owner, Playlist playlist, String token) throws Exception {
+    public PlaylistOverview createPlaylist(Playlist playlist, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return playlistDAO.createPlaylist(id, owner, playlist);
+            return playlistDAO.createPlaylist(playlist);
         } else {
             throw new Exception();
         }
