@@ -10,6 +10,7 @@ import nl.han.oose.jaimy.persistence.token.TokenDAO;
 import nl.han.oose.jaimy.persistence.tracks.TrackDAO;
 
 import javax.enterprise.inject.Default;
+import javax.naming.AuthenticationException;
 import javax.security.auth.login.AccountException;
 import java.util.List;
 
@@ -66,6 +67,17 @@ public class PlaylistServiceImpl implements PlaylistService {
             return playlistDAO.createPlaylist(playlist);
         } else {
             throw new Exception();
+        }
+    }
+
+    @Override
+    public TrackOverview addTrackToPlaylist(String token, int playlistId, Track track) throws AuthenticationException {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            playlistDAO.addTrackToPlaylist(playlistId, track);
+            return playlistDAO.getContentOfPlaylist(playlistId);
+        } else {
+            throw new AuthenticationException();
         }
     }
 }
