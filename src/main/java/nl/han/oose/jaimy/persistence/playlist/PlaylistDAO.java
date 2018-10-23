@@ -115,22 +115,6 @@ public class PlaylistDAO {
         return Length;
     }
 
-    public void addTrackToPlaylist(int playlistId, Track track) {
-        try (
-                Connection connection = connectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tracksInPlaylist (playlist_id, track_id, offline_available) VALUES(?,?,?)");
-        ) {
-            preparedStatement.setInt(1, playlistId);
-            preparedStatement.setInt(2, track.getId());
-            preparedStatement.setBoolean(3, track.isOfflineAvailable());
-
-            preparedStatement.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public TrackOverview getContentOfPlaylist(int playlistId) {
         TrackOverview trackOverview = new TrackOverview();
         try (
@@ -161,7 +145,7 @@ public class PlaylistDAO {
                 }
 
                 String description = resultSet.getString("description");
-                boolean offlineAvailable = resultSet.getBoolean("offline_available");
+                boolean offlineAvailable = resultSet.getBoolean("offlineAvailable");
                 trackOverview.getTracks().add(new Track(id, title, performer, duration, album, playcount, publicationDate, description, offlineAvailable));
             }
         } catch (SQLException e) {
@@ -173,5 +157,20 @@ public class PlaylistDAO {
 
     }
 
+    public void addTrackToPlaylist(int playlistId, Track track) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO playlist_tracks(playlist_id, track_id, offlineAvailable) VALUES(?,?,?)");
+        ) {
+            preparedStatement.setInt(1, playlistId);
+            preparedStatement.setLong(2, track.getId());
+            preparedStatement.setBoolean(3, track.getOfflineAvailable());
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

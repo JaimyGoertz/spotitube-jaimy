@@ -6,6 +6,7 @@ import nl.han.oose.jaimy.entity.tracks.Track;
 import nl.han.oose.jaimy.services.playlist.PlaylistService;
 
 import javax.inject.Inject;
+import javax.naming.AuthenticationException;
 import javax.security.auth.login.AccountException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -78,15 +79,15 @@ public class PlaylistController {
         }
     }
 
-    @Path("/{id}/tracks")
     @POST
+    @Path("/{id}/tracks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTrackToPlaylist(@QueryParam("token") String userToken, @PathParam("id") int playlistId, Track track) {
+    public Response addTrackToPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, Track track) {
         try {
-            return Response.ok().entity(playlistService.addTrackToPlaylist(userToken, playlistId, track)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.OK).entity(playlistService.addTrackToPlaylist(token, playlistId, track)).build();
+        } catch (AuthenticationException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 }

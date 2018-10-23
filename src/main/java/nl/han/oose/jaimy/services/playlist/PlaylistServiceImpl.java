@@ -12,7 +12,6 @@ import nl.han.oose.jaimy.persistence.tracks.TrackDAO;
 import javax.enterprise.inject.Default;
 import javax.naming.AuthenticationException;
 import javax.security.auth.login.AccountException;
-import java.util.List;
 
 @Default
 public class PlaylistServiceImpl implements PlaylistService {
@@ -26,10 +25,10 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public TrackOverview getPlaylistTracks(int id, String Token) throws AccountException {
-        List<Track> tracks = trackDAO.getAllTracksFromPlaylist(id);
+        TrackOverview tracks = trackDAO.getAllTracksFromPlaylist(id);
         UserToken userToken = tokenDAO.getUserToken(Token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return new TrackOverview(tracks);
+            return tracks;
         } else {
             throw new AccountException();
         }
@@ -75,9 +74,10 @@ public class PlaylistServiceImpl implements PlaylistService {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             playlistDAO.addTrackToPlaylist(playlistId, track);
-            return playlistDAO.getContentOfPlaylist(playlistId);
+            return trackDAO.getAllAvailableTracksForPlaylist(playlistId);
         } else {
-            throw new AuthenticationException();
+            throw new AuthenticationException("Token incorrect");
         }
     }
+
 }
