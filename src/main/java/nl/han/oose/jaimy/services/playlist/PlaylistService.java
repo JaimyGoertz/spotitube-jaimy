@@ -21,4 +21,6 @@ public interface PlaylistService {
     PlaylistOverview createPlaylist(Playlist playlist, String userToken) throws Exception;
 
     TrackOverview addTrackToPlaylist(String token, int playlistId, Track track) throws AuthenticationException;
+
+    TrackOverview deleteTrack(String token, int playlistId, int trackId) throws AuthenticationException;
 }

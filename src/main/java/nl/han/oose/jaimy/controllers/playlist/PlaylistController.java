@@ -90,4 +90,16 @@ public class PlaylistController {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
+
+    @DELETE
+    @Path("/{playlistId}/tracks/{trackId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTrack(@QueryParam("token") String token, @PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId) {
+        try {
+            return Response.status(Response.Status.OK).entity(playlistService.deleteTrack(token, playlistId, trackId)).build();
+        } catch (AuthenticationException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
 }

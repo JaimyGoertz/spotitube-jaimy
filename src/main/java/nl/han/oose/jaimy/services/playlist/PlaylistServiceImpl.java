@@ -63,7 +63,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     public PlaylistOverview createPlaylist(Playlist playlist, String token) throws Exception {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return playlistDAO.createPlaylist(playlist);
+            playlistDAO.createPlaylist(playlist);
+            return playlistDAO.getAllPlaylists();
         } else {
             throw new Exception();
         }
@@ -74,6 +75,17 @@ public class PlaylistServiceImpl implements PlaylistService {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             playlistDAO.addTrackToPlaylist(playlistId, track);
+            return trackDAO.getAllAvailableTracksForPlaylist(playlistId);
+        } else {
+            throw new AuthenticationException("Token incorrect");
+        }
+    }
+
+    @Override
+    public TrackOverview deleteTrack(String token, int playlistId, int trackId) throws AuthenticationException {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            trackDAO.deleteTrack(playlistId, trackId);
             return trackDAO.getAllAvailableTracksForPlaylist(playlistId);
         } else {
             throw new AuthenticationException("Token incorrect");

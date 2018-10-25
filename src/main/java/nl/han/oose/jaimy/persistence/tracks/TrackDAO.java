@@ -81,5 +81,19 @@ public class TrackDAO {
         return trackOverview;
     }
 
+    public void deleteTrack(int playlistId, int trackId) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM playlist_tracks WHERE playlist_id = ? AND track_id = ?");
+        ) {
+            preparedStatement.setInt(1, playlistId);
+            preparedStatement.setInt(2, trackId);
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

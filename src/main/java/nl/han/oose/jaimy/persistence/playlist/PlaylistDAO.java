@@ -15,19 +15,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class PlaylistDAO {
 
     private ConnectionFactory connectionFactory;
+
 
     public PlaylistDAO() {
         connectionFactory = new ConnectionFactory();
     }
 
     public PlaylistOverview getAllPlaylists() {
-        List<Playlist> playlists = new ArrayList<>();
-        List<Track> tracks = new ArrayList<>();
+        int playlistLength = 0;
+        PlaylistOverview playlistOverview = new PlaylistOverview();
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM playlist");
@@ -37,12 +37,15 @@ public class PlaylistDAO {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 Boolean owner = resultSet.getBoolean("owner");
-                playlists.add(new Playlist(id, name, owner, tracks));
+
+                playlistOverview.getPlaylists().add(new Playlist(id, name, owner, new ArrayList<>()));
+                playlistLength += getLengthOfPlaylist(id);
             }
+            playlistOverview.setLength(playlistLength);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new PlaylistOverview(playlists);
+        return playlistOverview;
     }
 
     public PlaylistOverview editPlaylistName(Playlist playlist) {
@@ -75,44 +78,38 @@ public class PlaylistDAO {
         return getAllPlaylists();
     }
 
-    public PlaylistOverview createPlaylist(Playlist playlist) {
-        playlist.setId(4);
+    public void createPlaylist(Playlist playlist) {
         playlist.setOwner(true);
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist VALUES(?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO playlist(name,owner) VALUES(?,?)");
         ) {
-            statement.setInt(1, playlist.getId());
-            statement.setString(2, playlist.getName());
-            statement.setBoolean(3, playlist.getOwner());
+            statement.setString(1, playlist.getName());
+            statement.setBoolean(2, playlist.getOwner());
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return getAllPlaylists();
     }
 
-    public int getLengthOfPlaylist(Playlist playlist) {
-        int Length = 0;
+    public int getLengthOfPlaylist(int playlistId) {
+        int playlistLength = 0;
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "SELECT SUM(duration) AS playlist_length\n" +
-                                "    FROM track INNER JOIN playlist_tracks on track.id = playlist_tracks.track_id\n" +
-                                "    WHERE playlist_tracks.playlist_id = ?")
+                PreparedStatement preparedStatement = connection.prepareStatement("select sum(duration)  AS length from track where id in(select track_id from playlist_tracks where playlist_id = ?)")
         ) {
 
-            preparedStatement.setInt(1, playlist.getId());
+            preparedStatement.setInt(1, playlistId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Length += resultSet.getInt("playlist_length");
+                playlistLength += resultSet.getInt("length");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Length;
+        return playlistLength;
     }
 
     public TrackOverview getContentOfPlaylist(int playlistId) {
