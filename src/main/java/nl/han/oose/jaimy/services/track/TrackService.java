@@ -1,6 +1,6 @@
-package nl.han.oose.jaimy.services.tracks;
+package nl.han.oose.jaimy.services.track;
 
-import nl.han.oose.jaimy.entity.tracks.TrackOverview;
+import nl.han.oose.jaimy.entity.track.TrackOverview;
 
 import javax.naming.AuthenticationException;
 

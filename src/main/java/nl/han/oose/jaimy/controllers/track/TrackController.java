@@ -1,6 +1,6 @@
-package nl.han.oose.jaimy.controllers.tracks;
+package nl.han.oose.jaimy.controllers.track;
 
-import nl.han.oose.jaimy.services.tracks.TrackService;
+import nl.han.oose.jaimy.services.track.TrackService;
 
 import javax.inject.Inject;
 import javax.naming.AuthenticationException;
@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/tracks")
+@Path("/track")
 public class TrackController {
 
     @Inject

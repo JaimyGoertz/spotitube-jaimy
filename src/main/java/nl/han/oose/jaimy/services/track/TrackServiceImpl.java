@@ -1,9 +1,9 @@
-package nl.han.oose.jaimy.services.tracks;
+package nl.han.oose.jaimy.services.track;
 
 import nl.han.oose.jaimy.entity.account.UserToken;
-import nl.han.oose.jaimy.entity.tracks.TrackOverview;
+import nl.han.oose.jaimy.entity.track.TrackOverview;
 import nl.han.oose.jaimy.persistence.token.TokenDAO;
-import nl.han.oose.jaimy.persistence.tracks.TrackDAO;
+import nl.han.oose.jaimy.persistence.track.TrackDAO;
 
 import javax.inject.Inject;
 import javax.naming.AuthenticationException;

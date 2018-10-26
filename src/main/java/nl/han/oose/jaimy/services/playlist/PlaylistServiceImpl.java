@@ -3,11 +3,11 @@ package nl.han.oose.jaimy.services.playlist;
 import nl.han.oose.jaimy.entity.account.UserToken;
 import nl.han.oose.jaimy.entity.playlist.Playlist;
 import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
-import nl.han.oose.jaimy.entity.tracks.Track;
-import nl.han.oose.jaimy.entity.tracks.TrackOverview;
+import nl.han.oose.jaimy.entity.track.Track;
+import nl.han.oose.jaimy.entity.track.TrackOverview;
 import nl.han.oose.jaimy.persistence.playlist.PlaylistDAO;
 import nl.han.oose.jaimy.persistence.token.TokenDAO;
-import nl.han.oose.jaimy.persistence.tracks.TrackDAO;
+import nl.han.oose.jaimy.persistence.track.TrackDAO;
 
 import javax.enterprise.inject.Default;
 import javax.naming.AuthenticationException;
