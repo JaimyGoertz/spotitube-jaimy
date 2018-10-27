@@ -11,7 +11,6 @@ import nl.han.oose.jaimy.persistence.track.TrackDAO;
 
 import javax.enterprise.inject.Default;
 import javax.naming.AuthenticationException;
-import javax.security.auth.login.AccountException;
 
 @Default
 public class PlaylistServiceImpl implements PlaylistService {
@@ -24,49 +23,54 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public TrackOverview getPlaylistTracks(int id, String Token) throws AccountException {
+    public TrackOverview getPlaylistTracks(int id, String Token) throws AuthenticationException {
         TrackOverview tracks = trackDAO.getAllTracksFromPlaylist(id);
         UserToken userToken = tokenDAO.getUserToken(Token);
         if (tokenDAO.isTokenValid(userToken)) {
             return tracks;
         } else {
-            throw new AccountException();
+            throw new AuthenticationException("Usertoken incorrect");
         }
 
     }
 
     @Override
-    public PlaylistOverview getPlaylists() {
-        return playlistDAO.getAllPlaylists();
+    public PlaylistOverview getAllPlaylists(String token) throws AuthenticationException {
+        UserToken userToken = tokenDAO.getUserToken(token);
+        if (tokenDAO.isTokenValid(userToken)) {
+            return playlistDAO.getAllPlaylists();
+        } else {
+            throw new AuthenticationException("Usertoken incorrect");
+        }
     }
 
-    public PlaylistOverview editPlaylistName(Playlist playlist, String token) throws Exception {
+    public PlaylistOverview editPlaylistName(Playlist playlist, String token) throws AuthenticationException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             return playlistDAO.editPlaylistName(playlist);
         } else {
-            throw new Exception();
+            throw new AuthenticationException();
         }
     }
 
     @Override
-    public PlaylistOverview deletePlaylist(int playlistId, String token) throws Exception {
+    public PlaylistOverview deletePlaylist(int playlistId, String token) throws AuthenticationException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             return playlistDAO.deletePlaylist(playlistId);
         } else {
-            throw new Exception();
+            throw new AuthenticationException();
         }
     }
 
     @Override
-    public PlaylistOverview createPlaylist(Playlist playlist, String token) throws Exception {
+    public PlaylistOverview createPlaylist(Playlist playlist, String token) throws AuthenticationException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             playlistDAO.createPlaylist(playlist);
             return playlistDAO.getAllPlaylists();
         } else {
-            throw new Exception();
+            throw new AuthenticationException();
         }
     }
 

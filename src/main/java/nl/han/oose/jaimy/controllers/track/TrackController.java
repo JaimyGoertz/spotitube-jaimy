@@ -19,7 +19,7 @@ public class TrackController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTracksNotInPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") int playlistId) {
+    public Response getAllAvailableTracksForPlaylist(@QueryParam("token") String token, @QueryParam("forPlaylist") int playlistId) {
         try {
             return Response.status(Response.Status.OK).entity(trackService.getAllAvailableTracksForPlaylist(token, playlistId)).build();
         } catch (AuthenticationException e) {

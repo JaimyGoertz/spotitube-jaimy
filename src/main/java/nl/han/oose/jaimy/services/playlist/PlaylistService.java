@@ -6,21 +6,20 @@ import nl.han.oose.jaimy.entity.track.Track;
 import nl.han.oose.jaimy.entity.track.TrackOverview;
 
 import javax.naming.AuthenticationException;
-import javax.security.auth.login.AccountException;
 
 public interface PlaylistService {
 
-    TrackOverview getPlaylistTracks(int id, String userToken) throws AccountException;
+    TrackOverview getPlaylistTracks(int id, String userToken) throws AuthenticationException;
 
-    PlaylistOverview getPlaylists();
+    PlaylistOverview editPlaylistName(Playlist playlist, String token) throws AuthenticationException;
 
-    PlaylistOverview editPlaylistName(Playlist playlist, String token) throws Exception;
+    PlaylistOverview deletePlaylist(int id, String token) throws AuthenticationException;
 
-    PlaylistOverview deletePlaylist(int id, String token) throws Exception;
-
-    PlaylistOverview createPlaylist(Playlist playlist, String userToken) throws Exception;
+    PlaylistOverview createPlaylist(Playlist playlist, String userToken) throws AuthenticationException;
 
     TrackOverview addTrackToPlaylist(String token, int playlistId, Track track) throws AuthenticationException;
 
     TrackOverview deleteTrack(String token, int playlistId, int trackId) throws AuthenticationException;
+
+    PlaylistOverview getAllPlaylists(String token) throws AuthenticationException;
 }

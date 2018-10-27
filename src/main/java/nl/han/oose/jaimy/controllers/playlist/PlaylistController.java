@@ -7,7 +7,6 @@ import nl.han.oose.jaimy.services.playlist.PlaylistService;
 
 import javax.inject.Inject;
 import javax.naming.AuthenticationException;
-import javax.security.auth.login.AccountException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,8 +25,12 @@ public class PlaylistController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPlaylist() {
-        return Response.ok().entity(playlistService.getPlaylists()).build();
+    public Response getPlaylists(@QueryParam("token") String userToken) {
+        try {
+            return Response.ok().entity(playlistService.getAllPlaylists(userToken)).build();
+        } catch (AuthenticationException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 
     @GET
@@ -38,7 +41,7 @@ public class PlaylistController {
         try {
             return Response.ok().entity(playlistService.getPlaylistTracks(id, userToken)).build();
 
-        } catch (AccountException exception) {
+        } catch (AuthenticationException exception) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         }
@@ -48,11 +51,11 @@ public class PlaylistController {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response editPlaylistName(@PathParam("id") final int id, Playlist playlist, @QueryParam("token") String userToken) {
+    public Response editPlaylistName(Playlist playlist, @QueryParam("token") String userToken) {
         try {
             return Response.ok().entity(playlistService.editPlaylistName(playlist, userToken)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -63,8 +66,8 @@ public class PlaylistController {
     public Response deletePlaylist(@PathParam("id") final int id, @QueryParam("token") String userToken) {
         try {
             return Response.ok().entity(playlistService.deletePlaylist(id, userToken)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        } catch (AuthenticationException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -74,8 +77,8 @@ public class PlaylistController {
     public Response createPlaylist(Playlist playlist, @QueryParam("token") String userToken) {
         try {
             return Response.ok().entity(playlistService.createPlaylist(playlist, userToken)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        } catch (AuthenticationException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
