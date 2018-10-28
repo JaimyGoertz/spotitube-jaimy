@@ -42,7 +42,7 @@ public class PlaylistServiceImplTest {
 
     //Tests getAllTracksFromPlaylist
     @Test
-    public void testGetTracksFromPlaylistReturnsTracksOverviewIfTokenIsCorrect() throws AuthenticationException {
+    public void testGetAllTracksFromPlaylistReturnsTracksOverviewIfTokenIsCorrect() throws AuthenticationException {
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
         TrackOverview trackOverview = new TrackOverview();
 
@@ -54,7 +54,7 @@ public class PlaylistServiceImplTest {
     }
 
     @Test
-    public void testGetTracksFromPlaylistReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
+    public void testGetAllTracksFromPlaylistReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
 
         thrown.expect(AuthenticationException.class);
@@ -68,7 +68,7 @@ public class PlaylistServiceImplTest {
 
     //Tests getAllPlaylists
     @Test
-    public void testGetPlaylistsReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
+    public void testGetAllPlaylistsReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
         PlaylistOverview playlistOverview = new PlaylistOverview();
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
 
@@ -80,7 +80,7 @@ public class PlaylistServiceImplTest {
     }
 
     @Test
-    public void testGetPlaylistsReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
+    public void testGetAllPlaylistsReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
 
         thrown.expect(AuthenticationException.class);
@@ -92,9 +92,9 @@ public class PlaylistServiceImplTest {
         sut.getAllPlaylists("1234-1234-1234");
     }
 
-    //Tests editPlaylist
+    //Tests editPlaylistName
     @Test
-    public void testEditPlaylistReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
+    public void testEditPlaylistNameReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
         PlaylistOverview playlistOverview = new PlaylistOverview();
         UserToken userToken = new UserToken("1234-1234-1234", "Nick");
 
@@ -106,7 +106,7 @@ public class PlaylistServiceImplTest {
     }
 
     @Test
-    public void testEditPlaylistReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
+    public void testEditPlaylistNameReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
 
         thrown.expect(AuthenticationException.class);
@@ -144,9 +144,9 @@ public class PlaylistServiceImplTest {
         sut.deletePlaylist(1, "1234-1234-1234");
     }
 
-    //Tests addPlaylist
+    //Tests createPlaylist
     @Test
-    public void testAddPlaylistReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
+    public void testCreatePlaylistReturnsPlaylistOverviewIfTokenIsCorrect() throws AuthenticationException {
         PlaylistOverview playlistOverview = new PlaylistOverview();
         UserToken token = new UserToken("Jaimy", "1234-1234-1234");
 
@@ -158,7 +158,7 @@ public class PlaylistServiceImplTest {
     }
 
     @Test
-    public void testAddPlaylistReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
+    public void testCreatePlaylistReturnsExceptionIfTokenIsIncorrect() throws AuthenticationException {
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
 
         thrown.expect(AuthenticationException.class);
