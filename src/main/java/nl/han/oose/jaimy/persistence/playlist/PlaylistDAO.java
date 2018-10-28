@@ -3,7 +3,12 @@ package nl.han.oose.jaimy.persistence.playlist;
 
 import nl.han.oose.jaimy.entity.playlist.Playlist;
 import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
+<<<<<<< HEAD
 import nl.han.oose.jaimy.entity.track.Track;
+=======
+import nl.han.oose.jaimy.entity.tracks.Track;
+import nl.han.oose.jaimy.entity.tracks.TrackOverview;
+>>>>>>> parent of 46e12df... Main Code Done
 import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
 import java.sql.Connection;

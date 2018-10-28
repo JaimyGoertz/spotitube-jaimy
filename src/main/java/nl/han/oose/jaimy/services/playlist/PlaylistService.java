@@ -2,8 +2,8 @@ package nl.han.oose.jaimy.services.playlist;
 
 import nl.han.oose.jaimy.entity.playlist.Playlist;
 import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
-import nl.han.oose.jaimy.entity.track.Track;
-import nl.han.oose.jaimy.entity.track.TrackOverview;
+import nl.han.oose.jaimy.entity.tracks.Track;
+import nl.han.oose.jaimy.entity.tracks.TrackOverview;
 
 import javax.naming.AuthenticationException;
 

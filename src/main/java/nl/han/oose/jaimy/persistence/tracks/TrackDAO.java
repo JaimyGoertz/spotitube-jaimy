@@ -1,8 +1,8 @@
-package nl.han.oose.jaimy.persistence.track;
+package nl.han.oose.jaimy.persistence.tracks;
 
 
-import nl.han.oose.jaimy.entity.track.Track;
-import nl.han.oose.jaimy.entity.track.TrackOverview;
+import nl.han.oose.jaimy.entity.tracks.Track;
+import nl.han.oose.jaimy.entity.tracks.TrackOverview;
 import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
 import java.sql.Connection;

@@ -2,7 +2,7 @@ package nl.han.oose.jaimy.controllers.playlist;
 
 
 import nl.han.oose.jaimy.entity.playlist.Playlist;
-import nl.han.oose.jaimy.entity.track.Track;
+import nl.han.oose.jaimy.entity.tracks.Track;
 import nl.han.oose.jaimy.services.playlist.PlaylistService;
 
 import javax.inject.Inject;
@@ -34,7 +34,7 @@ public class PlaylistController {
     }
 
     @GET
-    @Path("/{id}/track")
+    @Path("/{id}/tracks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTracksInPlaylist(@PathParam("id") final int id, @QueryParam("token") String userToken) {
@@ -83,7 +83,7 @@ public class PlaylistController {
     }
 
     @POST
-    @Path("/{id}/track")
+    @Path("/{id}/tracks")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTrackToPlaylist(@QueryParam("token") String token, @PathParam("id") int playlistId, Track track) {
@@ -95,7 +95,7 @@ public class PlaylistController {
     }
 
     @DELETE
-    @Path("/{playlistId}/track/{trackId}")
+    @Path("/{playlistId}/tracks/{trackId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTrack(@QueryParam("token") String token, @PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId) {
