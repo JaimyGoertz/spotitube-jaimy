@@ -23,11 +23,9 @@ public class LoginServiceImpl implements LoginService {
         for (Account account : accountDAO.getAllAccounts()) {
             if (user.getPassword().equals(account.getPassword()) && user.getUser().equals(account.getUser())) {
                 return tokenDAO.createUserToken(generateUserToken(), user);
-            } else {
-                throw new LoginException("Login failed");
             }
         }
-        return null;
+        throw new LoginException("Login failed");
     }
 
     public String generateUserToken() {

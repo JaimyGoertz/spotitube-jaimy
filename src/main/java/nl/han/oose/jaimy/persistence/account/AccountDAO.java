@@ -37,18 +37,26 @@ public class AccountDAO {
         return accounts;
     }
 
-    public void persistAccount(Account account) {
+    public Account getAccount(String username) {
+        Account account = null;
+
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement(
-                        "INSERT INTO USER (user,password) VALUES (?,?)");
+                PreparedStatement getAccountStatement = connection.prepareStatement("SELECT * FROM user us WHERE us.user  = ?");
         ) {
-            statement.setString(1, account.getUser());
-            statement.setString(2, account.getPassword());
-            statement.execute();
+            getAccountStatement.setString(1, username);
+            ResultSet accountResult = getAccountStatement.executeQuery();
+
+            while (accountResult.next()) {
+                String user = accountResult.getString("user");
+                String password = accountResult.getString("password");
+
+                account = new Account(user, password);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return account;
     }
 
 

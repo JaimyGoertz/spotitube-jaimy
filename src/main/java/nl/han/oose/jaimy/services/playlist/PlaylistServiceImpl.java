@@ -47,9 +47,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     public PlaylistOverview editPlaylistName(Playlist playlist, String token) throws AuthenticationException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return playlistDAO.editPlaylistName(playlist);
+            playlistDAO.editPlaylistName(playlist);
+            return playlistDAO.getAllPlaylists();
         } else {
-            throw new AuthenticationException();
+            throw new AuthenticationException("Usertoken incorrect");
         }
     }
 
@@ -57,9 +58,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     public PlaylistOverview deletePlaylist(int playlistId, String token) throws AuthenticationException {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
-            return playlistDAO.deletePlaylist(playlistId);
+            playlistDAO.deletePlaylist(playlistId);
+            return playlistDAO.getAllPlaylists();
         } else {
-            throw new AuthenticationException();
+            throw new AuthenticationException("Usertoken incorrect");
         }
     }
 
@@ -70,7 +72,7 @@ public class PlaylistServiceImpl implements PlaylistService {
             playlistDAO.createPlaylist(playlist);
             return playlistDAO.getAllPlaylists();
         } else {
-            throw new AuthenticationException();
+            throw new AuthenticationException("Usertoken incorrect");
         }
     }
 
@@ -79,9 +81,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             playlistDAO.addTrackToPlaylist(playlistId, track);
-            return trackDAO.getAllAvailableTracksForPlaylist(playlistId);
+            return trackDAO.getAllTracksFromPlaylist(playlistId);
         } else {
-            throw new AuthenticationException("Token incorrect");
+            throw new AuthenticationException("Usertoken incorrect");
         }
     }
 
@@ -90,9 +92,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         UserToken userToken = tokenDAO.getUserToken(token);
         if (tokenDAO.isTokenValid(userToken)) {
             trackDAO.deleteTrack(playlistId, trackId);
-            return trackDAO.getAllAvailableTracksForPlaylist(playlistId);
+            return trackDAO.getAllTracksFromPlaylist(playlistId);
         } else {
-            throw new AuthenticationException("Token incorrect");
+            throw new AuthenticationException("Usertoken incorrect");
         }
     }
 

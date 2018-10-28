@@ -1,7 +1,9 @@
 package nl.han.oose.jaimy.controllers.track;
 
-import nl.han.oose.jaimy.entity.track.TrackOverview;
-import nl.han.oose.jaimy.services.track.TrackService;
+
+import nl.han.oose.jaimy.controllers.tracks.TrackController;
+import nl.han.oose.jaimy.entity.tracks.TrackOverview;
+import nl.han.oose.jaimy.services.tracks.TrackService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,13 +28,13 @@ public class TrackControllerTest {
     //Tests for getAllAvailableTracksForPlaylist
     @Test
     public void testStatusOkAndTracklistEntityOnCorrectUsertokenGetAllAvailableTracksForPlaylist() throws AuthenticationException {
-        TrackOverview tracksOverview = new TrackOverview();
+        TrackOverview trackOverview = new TrackOverview();
 
-        Mockito.when(trackServiceMock.getAllAvailableTracksForPlaylist(Mockito.any(), Mockito.anyInt())).thenReturn(tracksOverview);
+        Mockito.when(trackServiceMock.getAllAvailableTracksForPlaylist(Mockito.any(), Mockito.anyInt())).thenReturn(trackOverview);
         Response response = sut.getAllAvailableTracksForPlaylist("321321", 1);
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(tracksOverview, response.getEntity());
+        assertEquals(trackOverview, response.getEntity());
     }
 
     @Test

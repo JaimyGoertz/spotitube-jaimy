@@ -3,12 +3,7 @@ package nl.han.oose.jaimy.persistence.playlist;
 
 import nl.han.oose.jaimy.entity.playlist.Playlist;
 import nl.han.oose.jaimy.entity.playlist.PlaylistOverview;
-<<<<<<< HEAD
-import nl.han.oose.jaimy.entity.track.Track;
-=======
 import nl.han.oose.jaimy.entity.tracks.Track;
-import nl.han.oose.jaimy.entity.tracks.TrackOverview;
->>>>>>> parent of 46e12df... Main Code Done
 import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
 import java.sql.Connection;
@@ -49,7 +44,7 @@ public class PlaylistDAO {
         return playlistOverview;
     }
 
-    public PlaylistOverview editPlaylistName(Playlist playlist) {
+    public void editPlaylistName(Playlist playlist) {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
@@ -61,10 +56,9 @@ public class PlaylistDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return getAllPlaylists();
     }
 
-    public PlaylistOverview deletePlaylist(int playlistId) {
+    public void deletePlaylist(int playlistId) {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist WHERE id = ?")
@@ -76,7 +70,6 @@ public class PlaylistDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return getAllPlaylists();
     }
 
     public void createPlaylist(Playlist playlist) {
