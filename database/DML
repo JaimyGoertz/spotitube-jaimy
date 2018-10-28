@@ -1,0 +1,25 @@
+Insert User:
+
+INSERT INTO user VALUES ('Jaimy', 'pass')
+
+
+
+Inserts playlists:
+
+INSERT INTO playlist VALUES (1, 'Metal', true),
+INSERT INTO playlist VALUES (2, 'Pop', false);
+
+
+
+Inserts Tracks:
+
+INSERT INTO track VALUES (1, 'Song for someone', 'The Frames', 350, 'The Cost', 0, null, null, false);
+INSERT INTO track VALUES (2, 'The Cost', 'The Frames', 423, null, 37, '10-01-2015', 'Title song from the album The Cost', true);
+INSERT INTO track VALUES (3, 'Thriller', 'Michael Jackson', 423, null, 5, '10-01-2015', 'Great song', false);
+
+
+
+Inserts tracks in playlist:
+
+INSERT INTO playlist_tracks VALUES (1, 1, false),
+INSERT INTO playlist_tracks VALUES (1, 2, true);
