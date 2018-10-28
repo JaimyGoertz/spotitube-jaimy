@@ -1,6 +1,5 @@
 package nl.han.oose.jaimy.persistence.token;
 
-import nl.han.oose.jaimy.entity.account.Account;
 import nl.han.oose.jaimy.entity.account.UserToken;
 import nl.han.oose.jaimy.persistence.ConnectionFactory;
 
@@ -10,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 public class TokenDAO {
 
@@ -39,22 +39,26 @@ public class TokenDAO {
         return usertoken;
     }
 
-    public UserToken createUserToken(String token, Account user) {
+    public UserToken createUserToken(String user) {
         deleteUserToken(user);
+        UserToken userToken;
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO user_token (user,token,expiry_date) VALUES (?,?,?)");
         ) {
+            String token = UUID.randomUUID().toString();
             LocalDateTime expiryDate = LocalDateTime.now().plusHours(24);
-            statement.setString(1, user.getUser());
+            statement.setString(1, user);
             statement.setString(2, token);
             statement.setString(3, expiryDate.toString());
             statement.execute();
+
+            userToken = new UserToken(user, token);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new UserToken(user.getUser(), token);
+        return userToken;
     }
 
     public boolean isTokenValid(UserToken userToken) {
@@ -98,13 +102,13 @@ public class TokenDAO {
         }
     }
 
-    public void deleteUserToken(Account user) {
+    public void deleteUserToken(String user) {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(
                         "DELETE FROM user_token WHERE user = ?");
         ) {
-            statement.setString(1, user.getUser());
+            statement.setString(1, user);
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

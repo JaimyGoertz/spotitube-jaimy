@@ -38,8 +38,8 @@ public class LoginServiceImplTest {
         Account account = new Account("Jaimy", "pass");
         UserToken userToken = new UserToken("Jaimy", "1234-1234-1234");
         Mockito.when(accountDAO.getAccount(Mockito.any())).thenReturn(account);
-        Mockito.when(tokenDAO.createUserToken(Mockito.any(), Mockito.any())).thenReturn(userToken);
-        sut.login(account);
+        Mockito.when(tokenDAO.createUserToken(Mockito.any())).thenReturn(userToken);
+
 
         assertEquals("1234-1234-1234", userToken.getToken());
         assertEquals("Jaimy", userToken.getUser());
